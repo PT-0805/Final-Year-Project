@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Crafted Wishes</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- Your existing CSS -->
+</head>
+<body>
+    <div class="navbar"> <!-- Replacing header with div -->
+        <div class="logo">
+            <img src="images/logo.jpg" alt="Crafted Wishes Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="login.html" class="active">Login</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                
+                <!-- <li>
+                    <div class="dropdown">
+                        <button class="dropbtn">Categories</button>
+                        <div class="dropdown-content">
+                            <a href="#">Personalized Gifts</a>
+                            <a href="#">Home Decor</a>
+                            <a href="#">Special Occasions</a>
+                        </div>
+                    </div>
+                </li> -->
+            </ul>
+        </nav>
+    </div>
+
+    <section class="signup-section">
+        <h1>Sign Up</h1>
+        <form id="signup-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required><br>
+
+            <label for="role">Role:</label>
+            <select id="role" required>
+                <option value="">Select Role</option>
+                <option value="admin">Admin</option>
+                <option value="seller">Seller</option>
+                <option value="delivery">Delivery Man</option>
+                <option value="support">Customer Support</option>
+                <option value="user">User</option>
+            </select><br>
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </section>
+
+    <footer>
+        <!-- Your footer -->
+    </footer>
+
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const role = document.getElementById('role').value;
+
+            // For now, we'll just store the signup data in localStorage
+            localStorage.setItem('name', name);
+            localStorage.setItem('email', email);
+            localStorage.setItem('role', role);
+
+            // Redirect to the login page
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>

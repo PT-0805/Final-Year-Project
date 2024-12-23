@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            <img src="images/logo.jpg" alt="Crafted Wishes Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="product-detail">
+        <div class="product-info">
+            <img id="product-image" src="" alt="Product Image">
+            <div class="product-details">
+                <h3 id="product-title"></h3>
+                <p id="product-description"></p>
+                <p class="price" id="product-price"></p>
+                <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Crafted Wishes. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to extract query parameters from the URL
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Function to load product details from the query string
+        function loadProductDetails() {
+            const title = getQueryParam('title');
+            const description = getQueryParam('description');
+            const price = getQueryParam('price');
+            const image = getQueryParam('image');
+
+            // Set the product details dynamically on the page
+            document.getElementById('product-title').innerText = decodeURIComponent(title);
+            document.getElementById('product-description').innerText = decodeURIComponent(description);
+            document.getElementById('product-price').innerText = decodeURIComponent(price);
+            document.getElementById('product-image').src = decodeURIComponent(image);
+        }
+
+        // Add product to cart and store it in localStorage
+        function addToCart() {
+            const title = document.getElementById('product-title').innerText;
+            const price = document.getElementById('product-price').innerText.replace('Price: ₹', '');
+            const image = document.getElementById('product-image').src;
+
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItem = {
+                title: title,
+                price: price,
+                image: image,
+                quantity: 1
+            };
+
+            const existingProduct = cart.find(item => item.title === title);
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                cart.push(cartItem);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${title} has been added to your cart.`);
+        }
+
+        // Call the load function on page load
+        window.onload = loadProductDetails;
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crafted Wishes - Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="navbar"> <!-- Replacing header with div -->
+        <div class="logo">
+            <img src="images/logo.jpg" alt="Crafted Wishes Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="profile.html" class="active">Profile</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                
+                <!-- <li>
+                    <div class="dropdown">
+                        <button class="dropbtn">Categories</button>
+                        <div class="dropdown-content">
+                            <a href="#">Personalized Gifts</a>
+                            <a href="#">Home Decor</a>
+                            <a href="#">Special Occasions</a>
+                        </div>
+                    </div>
+                </li> -->
+            </ul>
+        </nav>
+    </div>
+    <section class="profile-section">
+        <div class="profile-header">
+            <h1>Your Profile</h1>
+            <button class="edit-profile-btn">Edit Profile</button>
+        </div>
+        
+        <div id="profile-info">
+            <div class="profile-box">
+                <h2>Name</h2>
+                <p><strong><span id="name"></span></strong></p>
+            </div>
+            <div class="profile-box">
+                <h2>Email</h2>
+                <p><strong><span id="email"></span></strong></p>
+            </div>
+            <div class="profile-box">
+                <h2>Role</h2>
+                <p><strong><span id="role"></span></strong></p>
+            </div>
+        </div>
+        
+        <div class="wishlist">
+            <h2>Your Wishlist</h2>
+           
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Crafted Wishes. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Retrieve profile data from localStorage and display it
+        const name = localStorage.getItem('name');
+        const email = localStorage.getItem('email');
+        const role = localStorage.getItem('role');
+
+        if (name && email && role) {
+            document.getElementById('name').textContent = name;
+            document.getElementById('email').textContent = email;
+            document.getElementById('role').textContent = role;
+        } else {
+            // If no data is available, redirect to login page
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
