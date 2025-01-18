@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="navbar">
+  <header>
+    <h1>Admin Dashboard</h1>
+    <nav>
+      <a href="users.html">Users</a>
+      <a href="orders.html">Orders</a>
+      <a href="reports.html">Reports</a>
+    </nav>
+  </header>
+</div>
+  <main>
+    <section id="overview">
+      <h2>Overview</h2>
+      <div class="card">Total Users: 1200</div>
+      <div class="card">Total Sales: $50,000</div>
+    </section>
+
+    <section id="management">
+      <h2>Manage</h2>
+      <button id="remove User" onclick="AddUser()">Remove User</button>
+      <button onclick="generateReport()">Generate Report</button>
+    </section>
+  </main>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
