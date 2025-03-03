@@ -42,11 +42,6 @@ in this html code add a filter button on the basis of anniversery and birthday a
                 <h3>Customized Keychain</h3>
                 <p>Personalize this beautiful keychain with your name or initials.</p>
                 <p class="price">&#x20b9 100.00</p>
-                <div class="quantity-control">
-                    <button class="quantity-btn minus" onclick="changeQuantity(this, -1)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1" max="10">
-                    <button class="quantity-btn plus" onclick="changeQuantity(this, 1)">+</button>
-                </div>
                 <button class="details-button" onclick="viewProduct('Customized Keychain', 'Personalize this beautiful keychain with your name or initials.', '₹100.00', 'https://5.imimg.com/data5/SELLER/Default/2022/10/MU/VL/MD/31826573/4-1000x1000.jpg')">Details</button>
                 <button class="add-to-cart-button" onclick="addToCart('Customized Keychain', 'Personalize this beautiful keychain with your name or initials.', '₹100.00', 'https://5.imimg.com/data5/SELLER/Default/2022/10/MU/VL/MD/31826573/4-1000x1000.jpg', this)">Add to Cart</button>
             </div>
@@ -56,11 +51,6 @@ in this html code add a filter button on the basis of anniversery and birthday a
                 <h3>Personalized Mug</h3>
                 <p>Enjoy your morning coffee in a mug that has your name on it.</p>
                 <p class="price">&#x20b9 120.00</p>
-                <div class="quantity-control">
-                    <button class="quantity-btn minus" onclick="changeQuantity(this, -1)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1" max="10">
-                    <button class="quantity-btn plus" onclick="changeQuantity(this, 1)">+</button>
-                </div>
                 <button class="details-button" onclick="viewProduct('Personalized Mug', 'Enjoy your morning coffee in a mug that has your name on it.', '₹120.00', 'https://cdn11.bigcommerce.com/s-dos1319s/images/stencil/760x760/products/1280/9652/create-your-own-photo-mug__56879.1682458415.jpg?c=2')">Details</button>
                 <button class="add-to-cart-button" onclick="addToCart('Personalized Mug', 'Enjoy your morning coffee in a mug that has your name on it.', '₹120.00', 'https://cdn11.bigcommerce.com/s-dos1319s/images/stencil/760x760/products/1280/9652/create-your-own-photo-mug__56879.1682458415.jpg?c=2', this)">Add to Cart</button>
             </div>
@@ -70,11 +60,6 @@ in this html code add a filter button on the basis of anniversery and birthday a
                 <h3>Custom Photo Frame</h3>
                 <p>Frame your favorite memories with a personalized message or name.</p>
                 <p class="price">&#x20b9 300.00</p>
-                <div class="quantity-control">
-                    <button class="quantity-btn minus" onclick="changeQuantity(this, -1)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1" max="10">
-                    <button class="quantity-btn plus" onclick="changeQuantity(this, 1)">+</button>
-                </div>
                 <button class="details-button" onclick="viewProduct('Custom Photo Frame', 'Frame your favorite memories with a personalized message or name.', '₹300.00', 'https://homafy.com/wp-content/uploads/2022/04/WhatsApp-Image-2022-04-19-at-5.50.52-PM_11zon.jpeg')">Details</button>
                 <button class="add-to-cart-button" onclick="addToCart('Custom Photo Frame', 'Frame your favorite memories with a personalized message or name.', '₹300.00', 'https://homafy.com/wp-content/uploads/2022/04/WhatsApp-Image-2022-04-19-at-5.50.52-PM_11zon.jpeg', this)">Add to Cart</button>
             </div>
@@ -84,11 +69,6 @@ in this html code add a filter button on the basis of anniversery and birthday a
                 <h3>Personalized Pillow</h3>
                 <p>Get a cozy pillow with your name or a special quote on it.</p>
                 <p class="price">&#x20b9 200.00</p>
-                <div class="quantity-control">
-                    <button class="quantity-btn minus" onclick="changeQuantity(this, -1)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1" max="10">
-                    <button class="quantity-btn plus" onclick="changeQuantity(this, 1)">+</button>
-                </div>
                 <button class="details-button" onclick="viewProduct('Personalized Pillow', 'Get a cozy pillow with your name or a special quote on it.', '₹200.00', 'https://gifteezindia.com/wp-content/uploads/2024/07/1-17-scaled.jpg')">Details</button>
                 <button class="add-to-cart-button" onclick="addToCart('Personalized Pillow', 'Get a cozy pillow with your name or a special quote on it.', '₹200.00', 'https://gifteezindia.com/wp-content/uploads/2024/07/1-17-scaled.jpg', this)">Add to Cart</button>
             </div>
@@ -98,11 +78,6 @@ in this html code add a filter button on the basis of anniversery and birthday a
                 <h3>Personalized Phone Case</h3>
                 <p>Get a Stylish Phone Case with your name or a special quote on it.</p>
                 <p class="price">&#x20b9 250.00</p>
-                <div class="quantity-control">
-                    <button class="quantity-btn minus" onclick="changeQuantity(this, -1)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1" max="10">
-                    <button class="quantity-btn plus" onclick="changeQuantity(this, 1)">+</button>
-                </div>
                 <button class="details-button" onclick="viewProduct('Personalized Phone Case', 'Get a Stylish Phone Case with your name or a special quote on it.', '₹250.00', 'https://www.woodgeekstore.com/cdn/shop/products/Customized_Slim_Wooden_Phone_Case_WOODGEEKSTORE_1_1200x.jpg?v=1627489053')">Details</button>
                 <button class="add-to-cart-button" onclick="addToCart('Personalized Phone Case', 'Get a Stylish Phone Case with your name or a special quote on it.', '₹250.00', 'https://www.woodgeekstore.com/cdn/shop/products/Customized_Slim_Wooden_Phone_Case_WOODGEEKSTORE_1_1200x.jpg?v=1627489053', this)">Add to Cart</button>
             </div>
@@ -112,11 +87,6 @@ in this html code add a filter button on the basis of anniversery and birthday a
                 <h3>Personalized Bracelet</h3>
                 <p>Get a Bracelet with your name or for a special one on it.</p>
                 <p class="price">&#x20b9 350.00</p>
-                <div class="quantity-control">
-                    <button class="quantity-btn minus" onclick="changeQuantity(this, -1)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1" max="10">
-                    <button class="quantity-btn plus" onclick="changeQuantity(this, 1)">+</button>
-                </div>
                 <button class="details-button" onclick="viewProduct('Personalized Bracelet', 'Get a Bracelet with your name or for a special one on it.', '₹350.00', 'https://vivagifts.in/wp-content/uploads/2022/03/Personalized-Mens-Bracelet-2.jpg')">Details</button>
                 <button class="add-to-cart-button" onclick="addToCart('Personalized Bracelet', 'Get a Bracelet with your name or for a special one on it.', '₹350.00', 'https://vivagifts.in/wp-content/uploads/2022/03/Personalized-Mens-Bracelet-2.jpg', this)">Add to Cart</button>
             </div>
@@ -126,11 +96,6 @@ in this html code add a filter button on the basis of anniversery and birthday a
                 <h3>Custom Notebook</h3>
                 <p>Write your thoughts in a personalized notebook.</p>
                 <p class="price">&#x20b9 120.00</p>
-                <div class="quantity-control">
-                    <button class="quantity-btn minus" onclick="changeQuantity(this, -1)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1" max="10">
-                    <button class="quantity-btn plus" onclick="changeQuantity(this, 1)">+</button>
-                </div>
                 <button class="details-button" onclick="viewProduct('Custom Notebook', 'Write your thoughts in a personalized notebook.', '₹120.00', 'https://homafy.com/wp-content/uploads/2022/12/Always-positive-thinking-Notebook.jpg')">Details</button>
                 <button class="add-to-cart-button" onclick="addToCart('Custom Notebook', 'Write your thoughts in a personalized notebook.', '₹120.00', 'https://homafy.com/wp-content/uploads/2022/12/Always-positive-thinking-Notebook.jpg', this)">Add to Cart</button>
             </div>
@@ -157,21 +122,6 @@ in this html code add a filter button on the basis of anniversery and birthday a
             cart.push({ title, description, price, image, quantity });
             localStorage.setItem('cart', JSON.stringify(cart));
             alert(`${quantity} item(s) added to cart!`);
-        }
-        
-        // Function to change quantity
-        function changeQuantity(button, change) {
-            const quantityInput = button.parentElement.querySelector('.quantity-input');
-            let value = parseInt(quantityInput.value) + change;
-            
-            // Ensure value is within min and max
-            if (value < parseInt(quantityInput.min)) {
-                value = parseInt(quantityInput.min);
-            } else if (value > parseInt(quantityInput.max)) {
-                value = parseInt(quantityInput.max);
-            }
-            
-            quantityInput.value = value;
         }
         
         // Function to filter products by category
