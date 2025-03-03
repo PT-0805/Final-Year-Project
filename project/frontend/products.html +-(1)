@@ -1,4 +1,3 @@
-in this html code add a filter button on the basis of anniversery and birthday and a + and - to add and remove number of items for a theme based gift shopping website (only html code)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,71 @@ in this html code add a filter button on the basis of anniversery and birthday a
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crafted Wishes - Products</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Additional styles for the new features */
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            margin-left: 15px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .action-button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .delete-button {
+            background-color: #f44336;
+        }
+        
+        /* Styles for the dealer products page */
+        .dealer-products {
+            padding: 20px;
+            display: none;
+        }
+        
+        .dealer-product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .dealer-product-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .dealer-product-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .back-button {
+            margin-bottom: 20px;
+            padding: 8px 15px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar">
@@ -24,8 +88,14 @@ in this html code add a filter button on the basis of anniversery and birthday a
         </nav>
     </div>
 
-    <section class="products">
-        <h2>Our Customized Gifting Products</h2>
+    <section class="products" id="main-products">
+        <div class="section-header">
+            <h2>Our Customized Gifting Products</h2>
+            <div class="header-actions">
+                <button class="action-button" onclick="showAddProductForm()">Add</button>
+                <button class="action-button delete-button" onclick="toggleDeleteMode()">Delete</button>
+            </div>
+        </div>
         
         <!-- Filter buttons -->
         <div class="filter-container">
@@ -102,6 +172,15 @@ in this html code add a filter button on the basis of anniversery and birthday a
         </div>
     </section>
 
+    <!-- Dealer Products Section (initially hidden) -->
+    <section class="dealer-products" id="dealer-products">
+        <button class="back-button" onclick="backToMainProducts()">← Back to All Products</button>
+        <h2>Selected Products</h2>
+        <div class="dealer-product-list" id="dealer-product-list">
+            <!-- Selected products will be displayed here -->
+        </div>
+    </section>
+
     <footer>
         <p>&copy; 2024 Crafted Wishes. All rights reserved.</p>
     </footer>
@@ -112,16 +191,131 @@ in this html code add a filter button on the basis of anniversery and birthday a
             window.location.href = `product-detail.html?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&price=${encodeURIComponent(price)}&image=${encodeURIComponent(image)}`;
         }
 
-        // Add to cart function
+        // Modified Add to cart function to redirect to dealer products page
         function addToCart(title, description, price, image, button) {
-            const productItem = button.closest('.product-item');
-            const quantityInput = productItem.querySelector('.quantity-input');
-            const quantity = parseInt(quantityInput.value);
+            // Store the selected product in localStorage
+            let selectedProducts = JSON.parse(localStorage.getItem('selectedProducts')) || [];
             
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart.push({ title, description, price, image, quantity });
-            localStorage.setItem('cart', JSON.stringify(cart));
-            alert(`${quantity} item(s) added to cart!`);
+            // Check if product already exists
+            const existingProductIndex = selectedProducts.findIndex(product => product.title === title);
+            
+            if (existingProductIndex >= 0) {
+                // Product already exists, update quantity
+                selectedProducts[existingProductIndex].quantity += 1;
+            } else {
+                // Add new product
+                selectedProducts.push({ 
+                    title, 
+                    description, 
+                    price, 
+                    image, 
+                    quantity: 1 
+                });
+            }
+            
+            localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
+            
+            // Show the dealer products page with the selected products
+            showDealerProducts();
+        }
+        
+        // Function to show dealer products page
+        function showDealerProducts() {
+            // Hide main products section
+            document.getElementById('main-products').style.display = 'none';
+            
+            // Show dealer products section
+            const dealerProductsSection = document.getElementById('dealer-products');
+            dealerProductsSection.style.display = 'block';
+            
+            // Get selected products from localStorage
+            const selectedProducts = JSON.parse(localStorage.getItem('selectedProducts')) || [];
+            
+            // Display selected products
+            const dealerProductList = document.getElementById('dealer-product-list');
+            dealerProductList.innerHTML = '';
+            
+            if (selectedProducts.length === 0) {
+                dealerProductList.innerHTML = '<p>No products selected yet.</p>';
+                return;
+            }
+            
+            selectedProducts.forEach(product => {
+                const productElement = document.createElement('div');
+                productElement.className = 'dealer-product-item';
+                productElement.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}">
+                    <h3>${product.title}</h3>
+                    <p>${product.description}</p>
+                    <p class="price">${product.price}</p>
+                    <p>Quantity: ${product.quantity}</p>
+                    <button onclick="removeProduct('${product.title}')">Remove</button>
+                `;
+                dealerProductList.appendChild(productElement);
+            });
+        }
+        
+        // Function to go back to main products
+        function backToMainProducts() {
+            document.getElementById('dealer-products').style.display = 'none';
+            document.getElementById('main-products').style.display = 'block';
+        }
+        
+        // Function to remove a product from dealer products
+        function removeProduct(title) {
+            let selectedProducts = JSON.parse(localStorage.getItem('selectedProducts')) || [];
+            selectedProducts = selectedProducts.filter(product => product.title !== title);
+            localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
+            showDealerProducts();
+        }
+        
+        // Function to show add product form (placeholder for now)
+        function showAddProductForm() {
+            alert('Add product functionality would be implemented here');
+            // In a real implementation, you would show a form to add new products
+        }
+        
+        // Delete mode toggle
+        let deleteMode = false;
+        
+        function toggleDeleteMode() {
+            deleteMode = !deleteMode;
+            const products = document.querySelectorAll('.product-item');
+            
+            if (deleteMode) {
+                // Add delete buttons to each product
+                products.forEach(product => {
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'product-delete-btn';
+                    deleteBtn.textContent = 'X';
+                    deleteBtn.style.position = 'absolute';
+                    deleteBtn.style.top = '5px';
+                    deleteBtn.style.right = '5px';
+                    deleteBtn.style.backgroundColor = 'red';
+                    deleteBtn.style.color = 'white';
+                    deleteBtn.style.border = 'none';
+                    deleteBtn.style.borderRadius = '50%';
+                    deleteBtn.style.width = '25px';
+                    deleteBtn.style.height = '25px';
+                    deleteBtn.style.cursor = 'pointer';
+                    
+                    deleteBtn.onclick = function() {
+                        product.remove();
+                    };
+                    
+                    // Make sure product has relative positioning for absolute positioning of delete button
+                    product.style.position = 'relative';
+                    product.appendChild(deleteBtn);
+                });
+                
+                alert('Delete mode activated. Click on the X button to delete a product.');
+            } else {
+                // Remove delete buttons
+                const deleteButtons = document.querySelectorAll('.product-delete-btn');
+                deleteButtons.forEach(btn => btn.remove());
+                
+                alert('Delete mode deactivated.');
+            }
         }
         
         // Function to filter products by category
@@ -136,6 +330,15 @@ in this html code add a filter button on the basis of anniversery and birthday a
                 }
             });
         }
+        
+        // Check if there are any selected products on page load
+        window.onload = function() {
+            const selectedProducts = JSON.parse(localStorage.getItem('selectedProducts')) || [];
+            if (selectedProducts.length > 0) {
+                // If there are selected products in storage, show the dealer products page
+                showDealerProducts();
+            }
+        };
     </script>
 </body>
 </html>
