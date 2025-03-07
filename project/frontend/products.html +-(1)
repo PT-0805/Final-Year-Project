@@ -69,6 +69,103 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
+        /* Add Product Form Styles */
+        .add-product-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .add-product-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .add-product-form h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input, 
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .form-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .cancel-button {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .submit-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 150px;
+            border: 1px dashed #ddd;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body>
@@ -181,6 +278,45 @@
         </div>
     </section>
 
+    <!-- Add Product Form Overlay -->
+    <div class="add-product-overlay" id="addProductOverlay">
+        <div class="add-product-form">
+            <h3>Add New Product</h3>
+            <form id="newProductForm">
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="productImage">Product Image URL</label>
+                    <input type="url" id="productImage" required placeholder="https://example.com/image.jpg" onchange="previewImage()">
+                    <div class="image-preview" id="imagePreview">
+                        <span>Image preview will appear here</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Product Description</label>
+                    <textarea id="productDescription" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Product Price (₹)</label>
+                    <input type="number" id="productPrice" required min="1" step="1">
+                </div>
+                <div class="form-group">
+                    <label for="productCategory">Product Category</label>
+                    <select id="productCategory" required>
+                        <option value="birthday">Birthday</option>
+                        <option value="anniversary">Anniversary</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-button" onclick="hideAddProductForm()">Cancel</button>
+                    <button type="submit" class="submit-button">Add Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2024 Crafted Wishes. All rights reserved.</p>
     </footer>
@@ -269,10 +405,114 @@
             showDealerProducts();
         }
         
-        // Function to show add product form (placeholder for now)
+        // Function to show add product form
         function showAddProductForm() {
-            alert('Add product functionality would be implemented here');
-            // In a real implementation, you would show a form to add new products
+            document.getElementById('addProductOverlay').style.display = 'flex';
+        }
+        
+        // Function to hide add product form
+        function hideAddProductForm() {
+            document.getElementById('addProductOverlay').style.display = 'none';
+            document.getElementById('newProductForm').reset();
+            document.getElementById('imagePreview').innerHTML = '<span>Image preview will appear here</span>';
+        }
+        
+        // Function to preview image
+        function previewImage() {
+            const imageUrl = document.getElementById('productImage').value;
+            const imagePreview = document.getElementById('imagePreview');
+            
+            if (imageUrl) {
+                // Create a new image element to test if the URL is valid
+                const img = new Image();
+                img.onload = function() {
+                    // Image loaded successfully
+                    imagePreview.innerHTML = `<img src="${imageUrl}" alt="Preview">`;
+                };
+                img.onerror = function() {
+                    // Image failed to load
+                    imagePreview.innerHTML = '<span>Invalid image URL. Please check the link.</span>';
+                };
+                img.src = imageUrl;
+            } else {
+                imagePreview.innerHTML = '<span>Image preview will appear here</span>';
+            }
+        }
+        
+        // Function to add a new product
+        document.getElementById('newProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('productName').value;
+            const image = document.getElementById('productImage').value;
+            const description = document.getElementById('productDescription').value;
+            const price = document.getElementById('productPrice').value;
+            const category = document.getElementById('productCategory').value;
+            
+            // Validate image URL
+            const img = new Image();
+            img.onload = function() {
+                // Image is valid, proceed with adding the product
+                addProductToPage(name, image, description, price, category);
+            };
+            img.onerror = function() {
+                // Image is invalid
+                alert('Invalid image URL. Please check the link and try again.');
+            };
+            img.src = image;
+        });
+
+        // Add this new function after the event listener above:
+        function addProductToPage(name, image, description, price, category) {
+            // Create new product element
+            const productGrid = document.querySelector('.product-grid');
+            const newProduct = document.createElement('div');
+            newProduct.className = 'product-item';
+            newProduct.setAttribute('data-category', category);
+            
+            // Format price with rupee symbol
+            const formattedPrice = `₹${price}.00`;
+            
+            // Set product HTML with fallback for image
+            newProduct.innerHTML = `
+                <img src="${image}" alt="${name}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+                <h3>${name}</h3>
+                <p>${description}</p>
+                <p class="price">&#x20b9 ${price}.00</p>
+                <button class="details-button" onclick="viewProduct('${name}', '${description}', '${formattedPrice}', '${image}')">Details</button>
+                <button class="add-to-cart-button" onclick="addToCart('${name}', '${description}', '${formattedPrice}', '${image}', this)">Add to Cart</button>
+            `;
+            
+            // Add the new product to the grid
+            productGrid.appendChild(newProduct);
+            
+            // Save to localStorage for persistence
+            saveProductToLocalStorage(name, description, formattedPrice, image, category);
+            
+            // Hide the form
+            hideAddProductForm();
+            
+            // Show success message
+            alert('Product added successfully!');
+        }
+        
+        // Function to save product to localStorage
+        function saveProductToLocalStorage(title, description, price, image, category) {
+            // Get existing products
+            let products = JSON.parse(localStorage.getItem('products')) || [];
+            
+            // Add new product
+            products.push({
+                title,
+                description,
+                price,
+                image,
+                category
+            });
+            
+            // Save back to localStorage
+            localStorage.setItem('products', JSON.stringify(products));
         }
         
         // Delete mode toggle
@@ -331,14 +571,79 @@
             });
         }
         
+        // Load saved products from localStorage
+        function loadSavedProducts() {
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const productGrid = document.querySelector('.product-grid');
+            
+            products.forEach(product => {
+                const newProduct = document.createElement('div');
+                newProduct.className = 'product-item';
+                newProduct.setAttribute('data-category', product.category);
+                
+                // Ensure the image is properly displayed
+                newProduct.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+                    <h3>${product.title}</h3>
+                    <p>${product.description}</p>
+                    <p class="price">${product.price}</p>
+                    <button class="details-button" onclick="viewProduct('${product.title}', '${product.description}', '${product.price}', '${product.image}')">Details</button>
+                    <button class="add-to-cart-button" onclick="addToCart('${product.title}', '${product.description}', '${product.price}', '${product.image}', this)">Add to Cart</button>
+                `;
+                
+                productGrid.appendChild(newProduct);
+            });
+        }
+        
         // Check if there are any selected products on page load
         window.onload = function() {
+            // Load saved products
+            loadSavedProducts();
+            
+            // Check for selected products
             const selectedProducts = JSON.parse(localStorage.getItem('selectedProducts')) || [];
             if (selectedProducts.length > 0) {
                 // If there are selected products in storage, show the dealer products page
                 showDealerProducts();
             }
         };
+
+        function showDealerProducts() {
+            // Hide main products section
+            document.getElementById('main-products').style.display = 'none';
+            
+            // Show dealer products section
+            const dealerProductsSection = document.getElementById('dealer-products');
+            dealerProductsSection.style.display = 'block';
+            
+            // Get selected products from localStorage
+            const selectedProducts = JSON.parse(localStorage.getItem('selectedProducts')) || [];
+            
+            // Display selected products
+            const dealerProductList = document.getElementById('dealer-product-list');
+            dealerProductList.innerHTML = '';
+            
+            if (selectedProducts.length === 0) {
+                dealerProductList.innerHTML = '<p>No products selected yet.</p>';
+                return;
+            }
+            
+            selectedProducts.forEach(product => {
+                const productElement = document.createElement('div');
+                productElement.className = 'dealer-product-item';
+                productElement.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+                    <h3>${product.title}</h3>
+                    <p>${product.description}</p>
+                    <p class="price">${product.price}</p>
+                    <p>Quantity: ${product.quantity}</p>
+                    <button onclick="removeProduct('${product.title}')">Remove</button>
+                `;
+                dealerProductList.appendChild(productElement);
+            });
+        }
     </script>
 </body>
 </html>
+
+
